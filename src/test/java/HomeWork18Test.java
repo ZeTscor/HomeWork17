@@ -1,12 +1,12 @@
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
+
+import filter.CustomLogFilter;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.Cookie;
 
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+
+import static filter.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -22,6 +22,7 @@ public class HomeWork18Test {
     @BeforeEach
     void login() {
         cookie = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("Email", "grof@gmail.com")
                 .formParam("Password", "azsxdc123")
@@ -36,6 +37,7 @@ public class HomeWork18Test {
     void addToCartTest() {
         String data = "addtocart_31.EnteredQuantity=1";
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .cookie("NOPCOMMERCE.AUTH", cookie)
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .body(data)
@@ -55,6 +57,7 @@ public class HomeWork18Test {
     void addAddressesTest() {
         //String data = "Address.Id=0&Address.FirstName=sfsd&Address.LastName=dsfsdf&Address.Email=eefd%40email.com&Address.Company=&Address.CountryId=78&Address.StateProvinceId=0&Address.City=Kiev&Address.Address1=Kresitic+1+2+3&Address.Address2=&Address.ZipPostalCode=1232145&Address.PhoneNumber=783242344234&Address.FaxNumber=";
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .cookie("NOPCOMMERCE.AUTH", cookie)
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("Address.Id", 0)
