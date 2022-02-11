@@ -1,20 +1,21 @@
 plugins {
     id 'java-library'
-    id 'io.qameta.allure' version '2.8.1'
+    id 'io.qameta.allure' version '2.9.6'
+
 }
 
 repositories {
     mavenCentral()
 }
 
-def junitVersion = "5.8.1",
-    allureVersion = "2.16.1"
+def allureVersion = "2.17.2",
+    selenideVersion = "5.24.0",
+    junitVersion = "5.8.1"
 
 allure {
     version = allureVersion
     autoconfigure = true
     aspectjweaver = true
-    configuration = "testImplementation"
     useJUnit5 {
         version = allureVersion
     }

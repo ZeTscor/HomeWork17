@@ -22,7 +22,6 @@ public class HomeWork18Test {
     @BeforeEach
     void login() {
         cookie = given()
-                .filter(customLogFilter().withCustomTemplates())
                 .contentType("application/x-www-form-urlencoded")
                 .formParam("Email", "grof@gmail.com")
                 .formParam("Password", "azsxdc123")
@@ -80,6 +79,7 @@ public class HomeWork18Test {
     @DisplayName("Наличие кнопки удалеения адресса")
     void deleteAddressesButtonTest() {
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .cookie("NOPCOMMERCE.AUTH", cookie)
                 .when()
                 .get("/customer/addresses")

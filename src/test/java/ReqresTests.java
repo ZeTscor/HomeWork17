@@ -1,3 +1,4 @@
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -5,6 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static filter.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -21,6 +23,7 @@ public class ReqresTests {
     void successfulRegisteredTest() {
         String data = "{ \"email\": \"eve.holt@reqres.in\", \"password\": \"1234azsx\" }";
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .body(data)
                 .when()
@@ -36,6 +39,7 @@ public class ReqresTests {
     void successfulCreateTest() {
         String data = "{ \"name\": \"morpheus\", \"job\": \"leader\" }";
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .body(data)
                 .when()
@@ -51,6 +55,7 @@ public class ReqresTests {
     @DisplayName("Получения List<>")
     void successfulGetListTest() {
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .when()
                 .get("/api/user")
                 .then()
@@ -72,6 +77,7 @@ public class ReqresTests {
          */
         String data = "{ \"first_name\": \"notJanet\", \"job\": \"leader\" }";
         Response response = given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType(ContentType.JSON)
                 .when()
                 .body(data)
@@ -87,6 +93,7 @@ public class ReqresTests {
     @DisplayName("Удаление пользователя")
     void successfulDeleteUserTest() {
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .when()
                 .delete("/api/user")
                 .then()
